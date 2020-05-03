@@ -9,7 +9,13 @@ class UsersController < ApplicationController
   # GET /users/1
   def show
     mp = Micropost.find_by user_id: params[:id]
-    @micropost = mp.nil? ? Micropost.new("nothing", 0) : mp
+    if mp.nil?
+      mp = Micropost.new
+      mp.content = "nothing to see here"
+      mp.user_id = 0
+      @micropost = mp
+    end
+    @micropost = mp
   end
 
   # GET /users/new
